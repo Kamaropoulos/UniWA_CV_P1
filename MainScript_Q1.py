@@ -51,7 +51,7 @@ filters = [
 metrics = [
     {
         "name": 'Mean-Squared Error',
-        "apply": lambda original, filtered: skimage.metrics.mean_squared_error(originalImage, filtered)
+        "apply": lambda original, filtered: skimage.metrics.mean_squared_error(original, filtered)
     },
     {
         "name": 'Normalized Root Mean-Squared Error',
@@ -59,7 +59,7 @@ metrics = [
     },
     {
         "name": 'Peak Signal to Noise Ratio',
-        "apply": lambda original, filtered: skimage.metrics.peak_signal_noise_ratio(originalImage, filtered)
+        "apply": lambda original, filtered: skimage.metrics.peak_signal_noise_ratio(original, filtered)
     }
 ]
 
