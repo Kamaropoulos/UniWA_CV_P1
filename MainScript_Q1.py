@@ -7,6 +7,9 @@ import csv
 
 import helpers
 
+from filters import filters
+from metrics import metrics
+
 # Get random image filename
 image = helpers.getRandomFile('./images to use')
 
@@ -18,50 +21,6 @@ originalImage = cv2.imread('images to use/'+image)
 # Display original version of the loaded image
 helpers.displayImage(originalImage, "Original", [1280, 720])
 cv2.waitKey()
-
-# Configuration for filters to use
-filters = [
-    {
-        "name": 'Blur',
-        "apply": lambda image: cv2.blur(image, (5, 5)),
-        "result": None,
-        "metrics": dict()
-    },
-    {
-        "name": 'Gaussian Blur',
-        "apply": lambda image: cv2.GaussianBlur(image, (5, 5), 0),
-        "result": None,
-        "metrics": dict()
-    },
-    {
-        "name": 'Median Blur',
-        "apply": lambda image: cv2.medianBlur(image, 5),
-        "result": None,
-        "metrics": dict()
-    },
-    {
-        "name": 'Bilateral Filter',
-        "apply": lambda image: cv2.bilateralFilter(image, 9, 5, 5),
-        "result": None,
-        "metrics": dict()
-    },
-]
-
-# Configuration for metrics to calculate
-metrics = [
-    {
-        "name": 'Mean-Squared Error',
-        "apply": lambda original, filtered: skimage.metrics.mean_squared_error(original, filtered)
-    },
-    {
-        "name": 'Normalized Root Mean-Squared Error',
-        "apply": lambda original, filtered: skimage.metrics.normalized_root_mse(original, filtered)
-    },
-    {
-        "name": 'Peak Signal to Noise Ratio',
-        "apply": lambda original, filtered: skimage.metrics.peak_signal_noise_ratio(original, filtered)
-    }
-]
 
 # Apply filters to images and display them
 for filter in filters:
