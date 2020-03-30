@@ -10,19 +10,19 @@ import csv
 # Load all images
 images = helpers.readImages(['./images to use/' + filename for filename in helpers.getFileNames('./images to use')])
 
-appliedNoises = dict()
+appliedNoise = dict()
 
 # For every loaded images
 for i, image in enumerate(images):
-    # helpers.displayImage(image, "Original " + str(i+1), [1280, 720])
-    # cv2.waitKey()
+    helpers.displayImage(image, "Original " + str(i+1), [1280, 720])
+    cv2.waitKey()
         
     # Pick a random noise generator and apply it
-    appliedNoises[i] = random.choice(noises)
-    imageWithNoise = appliedNoises[i]["apply"](image, 0.13)
+    appliedNoise[i] = random.choice(noises)
+    imageWithNoise = appliedNoise[i]["apply"](image, 0.13)
 
-    # helpers.displayImage(imageWithNoise, noise["name"] + " " + str(i+1), [1280, 720])
-    # cv2.waitKey()
+    helpers.displayImage(imageWithNoise, appliedNoise[i]["name"] + " " + str(i+1), [1280, 720])
+    cv2.waitKey()
 
     # Apply filters to images and display them
     for filter in filters:
@@ -38,8 +38,8 @@ for i, image in enumerate(images):
             filter["metrics"][i][metric["name"]] = metric["apply"](image, filter["result"][i])
             print(filter["metrics"][i][metric["name"]])
             
-        # helpers.displayImage(filter["result"][i], filter["name"] + " " + str(i+1), [1280, 720])
-        # cv2.waitKey()
+        helpers.displayImage(filter["result"][i], filter["name"] + " " + str(i+1), [1280, 720])
+        cv2.waitKey()
 
     
 # Name of the CSV file to write
@@ -54,7 +54,7 @@ try:
         for i, image in enumerate(images):
             data = {
                 "Image ID": i+1,
-                "Noise Type": appliedNoises[i]["name"]
+                "Noise Type": appliedNoise[i]["name"]
             }
             for filter in filters:
                 data["Filter Name"] = filter["name"]
